@@ -11,10 +11,11 @@ git clone
 cd card-transactions
 
 // Construção de uma imagem Docker com a tag "card-transactions"
+
 docker build . -t card-transactions
 
-// Executa um container com a imagem Docker gerada anteriormente
-// e expõe a porta 8000
+// Executa um container com a imagem Docker gerada anteriormente e expõe a porta 8000
+
 docker run -p 8000:8000 card-transactions
 
 A esta altura, você terá um container chamado card-transaction rodando com o 
