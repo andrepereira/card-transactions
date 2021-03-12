@@ -23,8 +23,10 @@ software devidamente compilado e executando, escutando na porta 8000.
 
 O SO do container é um Alpine Linux 64 bits x86.
 
+
 Os endpoints expostos:
 
+--------------------------------------------------------------------
 POST /accounts (criação de uma conta)
 
 Request Body:
@@ -42,7 +44,7 @@ Response Body:
 "document_number": "12345678900"
 }
 
----------------------------------------------------------------------
+--------------------------------------------------------------------
 
 POST /transactions (criação de uma transação)
 
