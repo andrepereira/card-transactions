@@ -71,6 +71,12 @@ func CreateTransaction(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 
+		// Verify if Amount exists in request
+		existsAmount := false
+		if transaction.Amount != 0 {
+			existsAmount = true
+		}
+
 		// Verify if Operation Type ID exists
 		existsOperationTypeID := false
 		for _, value := range OperationTypes {
@@ -80,7 +86,7 @@ func CreateTransaction(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 
-		if existsAccountID && existsOperationTypeID {
+		if existsAccountID && existsOperationTypeID && existsAmount {
 			// If Transaction Type ID is 1, 2 or 3 make ammount negative
 			if transaction.OperationTypeID == 1 || transaction.OperationTypeID == 2 || transaction.OperationTypeID == 3 {
 				transaction.Amount = transaction.Amount * (-1)
