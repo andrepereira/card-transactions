@@ -5,7 +5,10 @@ Software escrito em Go que simula algumas operações de uma API de administraç
 
 Em estado alpha.
 
-Para execução fácil, utilize o Docker:
+#Pode ser executado via CLI com (a porta exposta é a 8000):
+go run main.go
+
+#Ou utilize o Docker:
 
 git clone 
 cd card-transactions
