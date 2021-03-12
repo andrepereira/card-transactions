@@ -11,8 +11,13 @@ go run main.go
 
 #Ou utilize o Docker:
 
-git clone 
+git clone https://github.com/andrepereira/card-transactions.git
 cd card-transactions
+
+#Testes:
+
+cd models
+go test -v
 
 #Construção de uma imagem Docker com a tag "card-transactions"
 
