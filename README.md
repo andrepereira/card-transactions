@@ -6,6 +6,7 @@ Software escrito em Go que simula algumas operações de uma API de administraç
 Em estado alpha.
 
 #Pode ser executado via CLI com (a porta exposta é a 8000):
+
 go run main.go
 
 #Ou utilize o Docker:
@@ -13,11 +14,11 @@ go run main.go
 git clone 
 cd card-transactions
 
-// Construção de uma imagem Docker com a tag "card-transactions"
+#Construção de uma imagem Docker com a tag "card-transactions"
 
 docker build . -t card-transactions
 
-// Executa um container com a imagem Docker gerada anteriormente e expõe a porta 8000
+#Executa um container com a imagem Docker gerada anteriormente e expõe a porta 8000
 
 docker run -p 8000:8000 card-transactions
 
