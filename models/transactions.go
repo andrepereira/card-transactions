@@ -97,7 +97,7 @@ func CreateTransaction(w http.ResponseWriter, r *http.Request) {
 			Transactions = append(Transactions, transaction)
 			json.NewEncoder(w).Encode("success")
 		} else {
-			json.NewEncoder(w).Encode("error: invalid Accoun ID or Operation Type ID")
+			json.NewEncoder(w).Encode("error: invalid Accoun ID, Operation Type ID or Amount field")
 		}
 	}
 
