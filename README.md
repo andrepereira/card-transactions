@@ -5,27 +5,19 @@ Software escrito em Go que simula algumas operações de uma API de administraç
 
 Em estado alpha.
 
-#Pode ser executado via CLI com (a porta exposta é a 8000):
-
+# Pode ser executado via CLI com (a porta exposta é a 8000):
+```bash
 go run main.go
-
-#Ou utilize o Docker:
-
+```
+# Ou utilize o Docker:
+```bash
 git clone https://github.com/andrepereira/card-transactions.git
 cd card-transactions
-
-#Testes:
-
-cd models
-go test -v
-
 #Construção de uma imagem Docker com a tag "card-transactions"
-
 docker build . -t card-transactions
-
 #Executa um container com a imagem Docker gerada anteriormente e expõe a porta 8000
-
 docker run -p 8000:8000 card-transactions
+```
 
 A esta altura, você terá um container chamado card-transaction rodando com o 
 software devidamente compilado e executando, escutando na porta 8000.
@@ -63,3 +55,9 @@ Request Body:
 "operation_type_id": 4,
 "amount": 123.45
 }
+--------------------------------------------------------------------
+# Testes:
+```bash
+cd models
+go test -v
+```

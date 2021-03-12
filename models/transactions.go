@@ -37,9 +37,9 @@ func CreateAccount(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode("error: invalid JSON post")
 	} else {
 
-		s := len(Accounts)
+		size := len(Accounts)
 		// The next Account Id is the length of slice (Accounts DB) + 1
-		account.AccountID = s + 1
+		account.AccountID = size + 1
 
 		Accounts = append(Accounts, account)
 		json.NewEncoder(w).Encode("success")
@@ -58,9 +58,9 @@ func CreateTransaction(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode("error: invalid JSON post")
 	} else {
 
-		s := len(Transactions)
+		size := len(Transactions)
 		// The next Transaction Id is the length of slice (Transactions DB) + 1
-		transaction.TransactionID = s + 1
+		transaction.TransactionID = size + 1
 
 		// Verify if Account ID exists
 		existsAccountID := false
