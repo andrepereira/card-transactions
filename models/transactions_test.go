@@ -43,9 +43,9 @@ func TestCreateAccountWithMalformedJson1(t *testing.T) {
 	rr := httptest.NewRecorder()
 	handler := http.HandlerFunc(CreateAccount)
 	handler.ServeHTTP(rr, req)
-	if status := rr.Code; status != http.StatusOK {
+	if status := rr.Code; status != http.StatusBadRequest {
 		t.Errorf("handler returned wrong status code: got %v want %v",
-			status, http.StatusOK)
+			status, http.StatusBadRequest)
 	}
 
 	// Check the response body is what we expect.
@@ -67,9 +67,9 @@ func TestCreateAccountWithMalformedJson2(t *testing.T) {
 	rr := httptest.NewRecorder()
 	handler := http.HandlerFunc(CreateAccount)
 	handler.ServeHTTP(rr, req)
-	if status := rr.Code; status != http.StatusOK {
+	if status := rr.Code; status != http.StatusBadRequest {
 		t.Errorf("handler returned wrong status code: got %v want %v",
-			status, http.StatusOK)
+			status, http.StatusBadRequest)
 	}
 
 	// Check the response body is what we expect.
@@ -172,9 +172,9 @@ func TestCreateTransactionWithUnknowAccount(t *testing.T) {
 	rr := httptest.NewRecorder()
 	handler := http.HandlerFunc(CreateTransaction)
 	handler.ServeHTTP(rr, req)
-	if status := rr.Code; status != http.StatusOK {
+	if status := rr.Code; status != http.StatusNotAcceptable {
 		t.Errorf("handler returned wrong status code: got %v want %v",
-			status, http.StatusOK)
+			status, http.StatusNotAcceptable)
 	}
 
 	// Check the response body is what we expect.

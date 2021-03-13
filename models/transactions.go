@@ -34,6 +34,7 @@ func CreateAccount(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&account)
 
 	if err != nil || account.DocumentNumber == "" {
+		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode("error: invalid JSON post")
 	} else {
 
@@ -55,6 +56,7 @@ func CreateTransaction(w http.ResponseWriter, r *http.Request) {
 	var transaction Transaction
 	err := json.NewDecoder(r.Body).Decode(&transaction)
 	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode("error: invalid JSON post")
 	} else {
 
@@ -97,6 +99,7 @@ func CreateTransaction(w http.ResponseWriter, r *http.Request) {
 			Transactions = append(Transactions, transaction)
 			json.NewEncoder(w).Encode("success")
 		} else {
+			w.WriteHeader(http.StatusNotAcceptable)
 			json.NewEncoder(w).Encode("error: invalid Account ID, Operation Type ID or Amount field")
 		}
 	}
