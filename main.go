@@ -9,7 +9,6 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// função principal
 func main() {
 	models.InitOperationTypesIDsTable()
 

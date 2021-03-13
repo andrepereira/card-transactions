@@ -154,7 +154,6 @@ func TestCreateTransaction(t *testing.T) {
 
 	// Check the response body is what we expect.
 	// Add a new line char at final
-
 	expected := `"success"` + "\n"
 	if rr.Body.String() != expected {
 		t.Errorf("handler returned unexpected body: got %v want %v",
@@ -179,7 +178,6 @@ func TestCreateTransactionWithUnknowAccount(t *testing.T) {
 
 	// Check the response body is what we expect.
 	// Add a new line char at final
-
 	expected := `"error: invalid Account ID, Operation Type ID or Amount field"` + "\n"
 	if rr.Body.String() != expected {
 		t.Errorf("handler returned unexpected body: got %v want %v",
