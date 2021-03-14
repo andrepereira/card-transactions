@@ -123,7 +123,7 @@ func TestGetAccountWithUnknowAccount(t *testing.T) {
 
 	GetAccount(w, r)
 
-	if status := w.Code; status != http.StatusOK {
+	if status := w.Code; status != http.StatusNotFound {
 		t.Errorf("handler returned wrong status code: got %v want %v",
 			status, http.StatusOK)
 	}
