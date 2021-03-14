@@ -26,7 +26,7 @@ func TestCreateAccount(t *testing.T) {
 
 	// Check the response body is what we expect.
 	// Add a new line char at final
-	expected := `"success"` + "\n"
+	expected := `{"success": "account created"}`
 	if rr.Body.String() != expected {
 		t.Errorf("handler returned unexpected body: got %v want %v",
 			rr.Body.String(), expected)
@@ -50,7 +50,7 @@ func TestCreateAccountWithMalformedJson1(t *testing.T) {
 
 	// Check the response body is what we expect.
 	// Add a new line char at final
-	expected := `"error: invalid JSON post"` + "\n"
+	expected := `{"error": "invalid JSON post"}`
 	if rr.Body.String() != expected {
 		t.Errorf("handler returned unexpected body: got %v want %v",
 			rr.Body.String(), expected)
@@ -74,7 +74,7 @@ func TestCreateAccountWithMalformedJson2(t *testing.T) {
 
 	// Check the response body is what we expect.
 	// Add a new line char at final
-	expected := `"error: invalid JSON post"` + "\n"
+	expected := `{"error": "invalid JSON post"}`
 	if rr.Body.String() != expected {
 		t.Errorf("handler returned unexpected body: got %v want %v",
 			rr.Body.String(), expected)
@@ -154,7 +154,7 @@ func TestCreateTransaction(t *testing.T) {
 
 	// Check the response body is what we expect.
 	// Add a new line char at final
-	expected := `"success"` + "\n"
+	expected := `{"success": "transaction created"}`
 	if rr.Body.String() != expected {
 		t.Errorf("handler returned unexpected body: got %v want %v",
 			rr.Body.String(), expected)
@@ -178,7 +178,7 @@ func TestCreateTransactionWithUnknowAccount(t *testing.T) {
 
 	// Check the response body is what we expect.
 	// Add a new line char at final
-	expected := `"error: invalid Account ID, Operation Type ID or Amount field"` + "\n"
+	expected := `{"error": "invalid Account ID, Operation Type ID or Amount field"}`
 	if rr.Body.String() != expected {
 		t.Errorf("handler returned unexpected body: got %v want %v",
 			rr.Body.String(), expected)

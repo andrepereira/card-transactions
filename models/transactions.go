@@ -33,12 +33,14 @@ func GetAccount(w http.ResponseWriter, r *http.Request) {
 // Return a JSON with "success" or "error"
 func CreateAccount(w http.ResponseWriter, r *http.Request) {
 
+	w.Header().Set("Content-Type", "application/json")
 	var account Account
 	err := json.NewDecoder(r.Body).Decode(&account)
 
 	if err != nil || account.DocumentNumber == "" {
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode("error: invalid JSON post")
+		w.Write([]byte(`{"error": "invalid JSON post"}`))
+
 	} else {
 
 		size := len(Accounts)
@@ -46,7 +48,8 @@ func CreateAccount(w http.ResponseWriter, r *http.Request) {
 		account.AccountID = size + 1
 
 		Accounts = append(Accounts, account)
-		json.NewEncoder(w).Encode("success")
+		w.Write([]byte(`{"success": "account created"}`))
+
 	}
 
 }
@@ -56,11 +59,13 @@ func CreateAccount(w http.ResponseWriter, r *http.Request) {
 // Return a JSON with "success" or "error"
 func CreateTransaction(w http.ResponseWriter, r *http.Request) {
 
+	w.Header().Set("Content-Type", "application/json")
 	var transaction Transaction
 	err := json.NewDecoder(r.Body).Decode(&transaction)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode("error: invalid JSON post")
+		w.Write([]byte(`{"error": "invalid JSON post"}`))
+
 	} else {
 
 		size := len(Transactions)
@@ -100,10 +105,10 @@ func CreateTransaction(w http.ResponseWriter, r *http.Request) {
 			transaction.EventDate = time.Now()
 
 			Transactions = append(Transactions, transaction)
-			json.NewEncoder(w).Encode("success")
+			w.Write([]byte(`{"success": "transaction created"}`))
 		} else {
 			w.WriteHeader(http.StatusNotAcceptable)
-			json.NewEncoder(w).Encode("error: invalid Account ID, Operation Type ID or Amount field")
+			w.Write([]byte(`{"error": "invalid Account ID, Operation Type ID or Amount field"}`))
 		}
 	}
 
