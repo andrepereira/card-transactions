@@ -19,10 +19,13 @@ func GetAccount(w http.ResponseWriter, r *http.Request) {
 	for _, item := range Accounts {
 		accountID, _ := strconv.Atoi(params["accountId"])
 		if item.AccountID == accountID {
+			w.WriteHeader(http.StatusOK)
 			json.NewEncoder(w).Encode(item)
 			return
 		}
 	}
+
+	w.WriteHeader(http.StatusNotFound)
 	json.NewEncoder(w).Encode(&Account{})
 }
 
