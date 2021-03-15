@@ -48,6 +48,7 @@ func CreateAccount(w http.ResponseWriter, r *http.Request) {
 		account.AccountID = size + 1
 
 		Accounts = append(Accounts, account)
+		w.WriteHeader(http.StatusCreated)
 		w.Write([]byte(`{"success": "account created"}`))
 
 	}
