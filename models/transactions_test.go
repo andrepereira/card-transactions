@@ -147,7 +147,7 @@ func TestCreateTransaction(t *testing.T) {
 	rr := httptest.NewRecorder()
 	handler := http.HandlerFunc(CreateTransaction)
 	handler.ServeHTTP(rr, req)
-	if status := rr.Code; status != http.StatusOK {
+	if status := rr.Code; status != http.StatusCreated {
 		t.Errorf("handler returned wrong status code: got %v want %v",
 			status, http.StatusOK)
 	}

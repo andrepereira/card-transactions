@@ -105,6 +105,7 @@ func CreateTransaction(w http.ResponseWriter, r *http.Request) {
 			transaction.EventDate = time.Now()
 
 			Transactions = append(Transactions, transaction)
+			w.WriteHeader(http.StatusCreated)
 			w.Write([]byte(`{"success": "transaction created"}`))
 		} else {
 			w.WriteHeader(http.StatusNotAcceptable)
