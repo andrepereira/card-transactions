@@ -10,7 +10,7 @@ import (
 )
 
 func TestCreateAccount(t *testing.T) {
-	var jsonStr = []byte(`{"document_number": "12345678900"}`)
+	var jsonStr = []byte(`{"document_number": "12345678900", "avaliable_credit_limit": 5000}`)
 
 	req, err := http.NewRequest("POST", "/accounts", bytes.NewBuffer(jsonStr))
 	if err != nil {
@@ -101,7 +101,7 @@ func TestGetAccount(t *testing.T) {
 
 	// Check the response body is what we expect.
 	// Add a new line char at final
-	expected := `{"account_id":1,"document_number":"12345678900"}` + "\n"
+	expected := `{"account_id":1,"document_number":"12345678900","avaliable_credit_limit":5000}` + "\n"
 	if w.Body.String() != expected {
 		t.Errorf("handler returned unexpected body: got %v want %v",
 			w.Body.String(), expected)
@@ -183,4 +183,86 @@ func TestCreateTransactionWithUnknowAccount(t *testing.T) {
 		t.Errorf("handler returned unexpected body: got %v want %v",
 			rr.Body.String(), expected)
 	}
+}
+
+func TestGetAccountPosTransaction(t *testing.T) {
+
+	r, _ := http.NewRequest("GET", "/accounts/1", nil)
+	w := httptest.NewRecorder()
+
+	//Hack to try to fake gorilla/mux vars
+	vars := map[string]string{
+		"accountId": "1",
+	}
+
+	r = mux.SetURLVars(r, vars)
+
+	GetAccount(w, r)
+
+	if status := w.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+
+	// Check the response body is what we expect.
+	// Add a new line char at final
+	expected := `{"account_id":1,"document_number":"12345678900","avaliable_credit_limit":5123.45}` + "\n"
+	if w.Body.String() != expected {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			w.Body.String(), expected)
+	}
+
+}
+
+func TestCreateTransaction2(t *testing.T) {
+	InitOperationTypesIDsTable()
+	var jsonStr = []byte(`{"account_id":1,"operation_type_id":1,"amount":123.45}`)
+	req, err := http.NewRequest("POST", "/transactions", bytes.NewBuffer(jsonStr))
+	if err != nil {
+		t.Fatal(err)
+	}
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(CreateTransaction)
+	handler.ServeHTTP(rr, req)
+	if status := rr.Code; status != http.StatusCreated {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+
+	// Check the response body is what we expect.
+	// Add a new line char at final
+	expected := `{"success": "transaction created"}`
+	if rr.Body.String() != expected {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			rr.Body.String(), expected)
+	}
+}
+
+func TestGetAccountPosTransaction2(t *testing.T) {
+
+	r, _ := http.NewRequest("GET", "/accounts/1", nil)
+	w := httptest.NewRecorder()
+
+	//Hack to try to fake gorilla/mux vars
+	vars := map[string]string{
+		"accountId": "1",
+	}
+
+	r = mux.SetURLVars(r, vars)
+
+	GetAccount(w, r)
+
+	if status := w.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+
+	// Check the response body is what we expect.
+	// Add a new line char at final
+	expected := `{"account_id":1,"document_number":"12345678900","avaliable_credit_limit":5000}` + "\n"
+	if w.Body.String() != expected {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			w.Body.String(), expected)
+	}
+
 }

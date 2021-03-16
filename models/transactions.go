@@ -97,6 +97,26 @@ func CreateTransaction(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 
+		for i, v := range Accounts {
+			if v.AccountID == transaction.AccountID {
+				if transaction.OperationTypeID == 1 || transaction.OperationTypeID == 2 ||
+					transaction.OperationTypeID == 3 {
+					if v.AvaliableCreditLimit-float32(transaction.Amount) < 0 {
+						w.WriteHeader(http.StatusNotAcceptable)
+						w.Write([]byte(`{"error": "exceded limit"}`))
+					}
+					Accounts[i].AvaliableCreditLimit = v.AvaliableCreditLimit - float32(transaction.Amount)
+
+				}
+
+				if transaction.OperationTypeID == 4 {
+					Accounts[i].AvaliableCreditLimit = v.AvaliableCreditLimit + float32(transaction.Amount)
+
+				}
+
+			}
+		}
+
 		if existsAccountID && existsOperationTypeID && existsAmount {
 			// If Transaction Type ID is 1, 2 or 3 make ammount negative
 			if transaction.OperationTypeID == 1 || transaction.OperationTypeID == 2 || transaction.OperationTypeID == 3 {

@@ -4,8 +4,9 @@ import "time"
 
 // Account Account data
 type Account struct {
-	AccountID      int    `json:"account_id,omitempty"`
-	DocumentNumber string `json:"document_number,omitempty"`
+	AccountID            int     `json:"account_id,omitempty"`
+	DocumentNumber       string  `json:"document_number,omitempty"`
+	AvaliableCreditLimit float32 `json:"avaliable_credit_limit,omitempty"`
 }
 
 // OperationType Any operation has an ID and a Description
