@@ -103,7 +103,7 @@ func CreateTransaction(w http.ResponseWriter, r *http.Request) {
 					transaction.OperationTypeID == 3 {
 					if v.AvaliableCreditLimit-float32(transaction.Amount) < 0 {
 						w.WriteHeader(http.StatusNotAcceptable)
-						w.Write([]byte(`{"error": "exceded limit"}`))
+						w.Write([]byte(`{"error": "exceeded credit limit"}`))
 					}
 					Accounts[i].AvaliableCreditLimit = v.AvaliableCreditLimit - float32(transaction.Amount)
 
